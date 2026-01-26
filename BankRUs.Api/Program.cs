@@ -1,4 +1,3 @@
-using BankRUs.Api.Services;
 using BankRUs.Application.UseCases.OpenAccount;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Det finns enbart en instans av CustomerService som delas
 // av alla komponenter i applikationen, över applikations livstid.
-builder.Services.AddSingleton<CustomerService>();
 
 //// Varje enskild komponent som begär en CustomerService får sin egna
 //// instans av denna.
