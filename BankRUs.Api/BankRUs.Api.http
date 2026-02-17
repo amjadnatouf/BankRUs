@@ -12,3 +12,64 @@ Content-Type: application/json
   "email": "jane@doe.com"
 }
 
+### Öppna konto 
+
+POST https://localhost:8000/api/accounts
+Content-Type: application/json
+
+{
+  "firstName": "Bengt",
+  "lastName": "Bengtsson",
+  "socialSecurityNumber": "19850315-0016",
+  "email": "bengt@example.com"
+}
+
+### GET ACCOUNT DETAILS (US04)
+
+GET http://localhost:5201/api/bank-accounts?accountNumber=2687385696
+Content-Type: application/json
+
+### DEPOSITS (US05)
+### Deposit
+POST https://localhost:8000/api/bank-accounts/4951eb8a-4698-4dab-a11e-20dbe6cc977a/deposits
+Content-Type: application/json
+
+{
+  "amount": 1000.00,
+  "reference": "Lön januari"
+}
+
+### Deposit Invalid - Amount Zero
+POST https://localhost:8000/api/bank-accounts/4951eb8a-4698-4dab-a11e-20dbe6cc977a/deposits
+Content-Type: application/json
+
+{
+  "amount": 0,
+  "reference": "Invalid"
+}
+
+### WITHDRAWAL (US06)
+### Valid
+POST https://localhost:8000/api/bank-accounts/4951eb8a-4698-4dab-a11e-20dbe6cc977a/withdrawals
+Content-Type: application/json
+
+{
+  "amount": 200.00,
+  "reference": "Uttag bankomat"
+}
+
+### Invalid - Insufficient Funds
+POST https://localhost:8000/api/bank-accounts/4951eb8a-4698-4dab-a11e-20dbe6cc977a/withdrawals
+Content-Type: application/json
+
+{
+  "amount": 100000.00,
+  "reference": "Too much"
+}
+
+### LIST TRANSACTIONS (US07)
+### Valid
+GET https://localhost:8000/api/bank-accounts/4951eb8a-4698-4dab-a11e-20dbe6cc977a/transactions
+
+### Invalid - Account Not Found
+GET https://localhost:8000/api/bank-accounts/00000000-0000-0000-0000-000000000000/transactions

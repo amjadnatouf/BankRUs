@@ -1,7 +1,15 @@
 using BankRUs.Application.Identity;
+using BankRUs.Application.Repositories;
+using BankRUs.Application.Services;
+using BankRUs.Application.UseCases.Deposit;
+using BankRUs.Application.UseCases.GetTransactions;
 using BankRUs.Application.UseCases.OpenAccount;
+using BankRUs.Application.UseCases.OpenBankAccount;
+using BankRUs.Application.UseCases.Withdrawal;
 using BankRUs.Intrastructure.Identity;
 using BankRUs.Intrastructure.Persistance;
+using BankRUs.Intrastructure.Repositories;
+using BankRUs.Intrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +34,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<OpenAccountHandler>();
+builder.Services.AddScoped<OpenBankAccountHandler>();
 builder.Services.AddScoped<IIdentityService, IdentityService>();
+builder.Services.AddScoped<IBankAccountRepository, BankAccountRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<DepositHandler>();
+builder.Services.AddScoped<WithdrawalHandler>();
+builder.Services.AddScoped<GetTransactionsHandler>();
 
 // 3 typer av livslängder på objekt
 // - singleton = ett och samma objekt delas mellan alla andra under hela applikations livslängd
